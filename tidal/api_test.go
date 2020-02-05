@@ -24,3 +24,23 @@ func TestLogin(t *testing.T) {
 	}
 	log.Print("Logged In")
 }
+
+func TestSearch(t *testing.T) {
+	username, _ := os.LookupEnv("TIDAL_USER")
+	password, _ := os.LookupEnv("TIDAL_PASS")
+	var tdl Tidal
+	tdl.Login(username, password)
+	_, err := tdl.Search("El Camino", "albums")
+	if err != nil {
+		t.FailNow()
+	}
+	_, err = tdl.Search("Merry Happy", "tracks")
+	if err != nil {
+		t.FailNow()
+	}
+	_, err = tdl.Search("Beach Bunny", "artists")
+	if err != nil {
+		t.FailNow()
+	}
+	t.Log("Search Success")
+}
